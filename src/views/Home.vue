@@ -37,6 +37,7 @@
             Вход
           </button>
           <button
+            @click="router.push('/auth')"
             class="bg-blue-600 text-white px-6 py-4 sm:px-10 sm:py-5 rounded-2xl text-xs sm:text-base font-black uppercase tracking-widest hover:bg-slate-900 shadow-xl shadow-blue-500/20 transition-all active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           >
             Создать бота
@@ -64,11 +65,12 @@
               Запись клиентов и учет дохода прямо в<span class="text-blue-600"> Telegram</span>
             </h1>
             <p class="text-xl text-slate-500 max-w-2xl mb-12 leading-relaxed font-medium">
-              Подключите своего Telegram-бота и начните принимать записи, обрабатывать клиентов 24/7,
-              бот напомнит о визитах и поможет считать прибыль. Без CRM. Без Excel.
+              Подключите своего Telegram-бота и начните принимать записи, обрабатывать клиентов
+              24/7, бот напомнит о визитах и поможет считать прибыль. Без CRM. Без Excel.
             </p>
             <div class="flex flex-wrap gap-6 items-center">
               <button
+                @click="router.push('/auth')"
                 class="bg-blue-600 text-white px-6 py-4 sm:px-10 sm:py-5 rounded-3xl font-black text-base sm:text-lg hover:bg-blue-700 shadow-2xl shadow-blue-500/30 transition-all active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               >
                 Создать бота бесплатно
