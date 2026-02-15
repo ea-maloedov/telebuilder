@@ -1,109 +1,104 @@
-<script setup lang="ts">
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Switch } from '@/components/ui/switch'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
-</script>
-
 <template>
-  <div class="max-w-4xl space-y-10" data-aos="fade-up">
-    <Tabs default-value="general" class="w-full">
-      <TabsList class="bg-slate-100 p-1 rounded-2xl h-14 mb-8">
-        <TabsTrigger
-          value="general"
-          class="rounded-xl px-8 h-12 font-bold data-[state=active]:bg-white data-[state=active]:shadow-sm"
-          >Общие</TabsTrigger
-        >
-        <TabsTrigger
-          value="security"
-          class="rounded-xl px-8 h-12 font-bold data-[state=active]:bg-white data-[state=active]:shadow-sm"
-          >Безопасность</TabsTrigger
-        >
-        <TabsTrigger
-          value="billing"
-          class="rounded-xl px-8 h-12 font-bold data-[state=active]:bg-white data-[state=active]:shadow-sm"
-          >Оплата</TabsTrigger
-        >
-      </TabsList>
+  <div class="space-y-8">
+    <!-- HEADER -->
+    <div>
+      <h2 class="text-2xl font-bold tracking-tight">Настройки</h2>
+      <p class="text-sm text-slate-500 mt-1">Управление аккаунтом и параметрами системы</p>
+    </div>
 
-      <TabsContent value="general">
-        <Card class="border-none shadow-sm rounded-[2.5rem] bg-white p-4">
-          <CardHeader class="p-6">
-            <CardTitle class="text-2xl font-black">Профиль</CardTitle>
-          </CardHeader>
-          <CardContent class="p-6 space-y-8">
-            <div class="flex items-center gap-8">
-              <Avatar class="h-24 w-24 rounded-3xl border-4 border-slate-50">
-                <AvatarImage src="https://i.pravatar.cc" />
-                <AvatarFallback>AV</AvatarFallback>
-              </Avatar>
-              <Button variant="outline" class="rounded-xl border-slate-100 font-bold"
-                >Изменить фото</Button
-              >
-            </div>
+    <!-- PROFILE -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-6">
+      <div class="flex items-center gap-2">
+        <User class="w-4 h-4 text-slate-500" />
+        <h3 class="font-semibold">Профиль</h3>
+      </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div class="space-y-2">
-                <Label class="text-xs font-black uppercase tracking-widest text-slate-400"
-                  >Имя</Label
-                >
-                <Input
-                  value="Александр"
-                  class="h-12 rounded-xl bg-slate-50 border-none font-bold focus-visible:ring-2 focus-visible:ring-primary"
-                />
-              </div>
-              <div class="space-y-2">
-                <Label class="text-xs font-black uppercase tracking-widest text-slate-400"
-                  >Email</Label
-                >
-                <Input
-                  value="alex@bot.io"
-                  class="h-12 rounded-xl bg-slate-50 border-none font-bold focus-visible:ring-2 focus-visible:ring-primary"
-                />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </TabsContent>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="space-y-2">
+          <label class="text-sm font-medium">Имя</label>
+          <input
+            v-model="profile.name"
+            class="w-full px-4 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl outline-none focus:bg-white focus:border-slate-400 transition"
+          />
+        </div>
 
-      <TabsContent value="security" class="space-y-6">
-        <Card class="border-none shadow-sm rounded-[2.5rem] bg-white p-4">
-          <CardContent class="p-8 space-y-6">
-            <div class="flex items-center justify-between">
-              <div class="space-y-1">
-                <h4 class="font-black">Двухфакторная аутентификация</h4>
-                <p class="text-sm text-slate-500">Защита входа через Telegram код</p>
-              </div>
-              <Switch class="data-[state=checked]:bg-blue-600" />
-            </div>
-            <div class="pt-6 border-t border-slate-50">
-              <Label class="text-xs font-black uppercase tracking-widest text-slate-400 block mb-4"
-                >API Ключ</Label
-              >
-              <div class="flex gap-3">
-                <Input
-                  readonly
-                  value="sk_live_49x820...310"
-                  class="h-12 rounded-xl bg-slate-50 border-none font-mono font-bold"
-                />
-                <Button variant="secondary" class="rounded-xl h-12 px-6 font-black"
-                  >Обновить</Button
-                >
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </TabsContent>
-    </Tabs>
+        <div class="space-y-2">
+          <label class="text-sm font-medium">Email</label>
+          <input
+            v-model="profile.email"
+            class="w-full px-4 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl outline-none focus:bg-white focus:border-slate-400 transition"
+          />
+        </div>
+      </div>
 
-    <div class="flex justify-end gap-3 px-4">
-      <Button variant="ghost" class="rounded-xl font-bold text-slate-400">Сбросить</Button>
-      <Button class="rounded-xl px-10 h-12 font-black shadow-xl shadow-primary/20"
-        >Сохранить изменения</Button
-      >
+      <Button class="rounded-xl"> Сохранить изменения </Button>
+    </div>
+
+    <!-- NOTIFICATIONS -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-6">
+      <div class="flex items-center gap-2">
+        <Bell class="w-4 h-4 text-slate-500" />
+        <h3 class="font-semibold">Уведомления</h3>
+      </div>
+
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium">Email-уведомления</p>
+          <p class="text-xs text-slate-500">Получать отчёты и системные сообщения</p>
+        </div>
+        <Switch v-model="notifications.email" />
+      </div>
+
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium">Telegram-уведомления</p>
+          <p class="text-xs text-slate-500">Получать уведомления через бота</p>
+        </div>
+        <Switch v-model="notifications.telegram" />
+      </div>
+    </div>
+
+    <!-- SECURITY -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-6">
+      <div class="flex items-center gap-2">
+        <Shield class="w-4 h-4 text-slate-500" />
+        <h3 class="font-semibold">Безопасность</h3>
+      </div>
+
+      <Button variant="outline" class="rounded-xl"> Изменить пароль </Button>
+
+      <Button variant="outline" class="rounded-xl"> Включить 2FA </Button>
+    </div>
+
+    <!-- DANGER ZONE -->
+    <div class="bg-red-50 rounded-2xl border border-red-200 p-6 space-y-6">
+      <div class="flex items-center gap-2 text-red-600">
+        <AlertTriangle class="w-4 h-4" />
+        <h3 class="font-semibold">Опасная зона</h3>
+      </div>
+
+      <p class="text-sm text-red-600">
+        Удаление аккаунта приведёт к безвозвратной потере всех данных.
+      </p>
+
+      <Button variant="destructive" class="rounded-xl"> Удалить аккаунт </Button>
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref } from 'vue'
+import { User, Bell, Shield, AlertTriangle } from 'lucide-vue-next'
+import { Button } from '@/components/ui/button'
+import { Switch } from '@/components/ui/switch'
+
+const profile = ref({
+  name: 'Иван Иванов',
+  email: 'ivan@example.com',
+})
+
+const notifications = ref({
+  email: true,
+  telegram: false,
+})
+</script>

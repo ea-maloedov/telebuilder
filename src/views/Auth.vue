@@ -26,9 +26,9 @@
         </a>
 
         <h2 class="text-5xl font-black leading-tight mb-8">
-          Управляйте своими <br />
-          <span class="text-blue-600">ботами</span> из одной <br />
-          панели.
+          Управляйте записью <br />
+          и доходом через <br />
+          <span class="text-blue-600">Telegram</span>.
         </h2>
 
         <div class="space-y-8">
@@ -43,13 +43,6 @@
               <p class="text-slate-500">{{ item.desc }}</p>
             </div>
           </div>
-        </div>
-
-        <div class="mt-16 p-8 bg-blue-600 rounded-[2.5rem] text-white relative">
-          <p class="text-lg italic opacity-90">
-            "Этот конструктор сэкономил нам сотни часов разработки. Просто магия!"
-          </p>
-          <p class="mt-4 font-bold">— Команда TeleFlow</p>
         </div>
       </div>
     </div>
@@ -74,11 +67,14 @@
         </div>
 
         <h1 class="text-3xl font-black mb-2 tracking-tight text-center lg:text-left">
-          {{ isLogin ? 'С возвращением!' : 'Создать аккаунт' }}
+          {{ isLogin ? 'Вход в КУБ' : 'Создать аккаунт в КУБ' }}
         </h1>
+
         <p class="text-slate-500 mb-10 text-center lg:text-left font-medium">
           {{
-            isLogin ? 'Пожалуйста, введите данные для входа' : 'Заполните поля, чтобы начать работу'
+            isLogin
+              ? 'Введите данные, чтобы продолжить работу.'
+              : 'Создайте аккаунт и подключите своего Telegram-бота.'
           }}
         </p>
 
@@ -118,7 +114,7 @@
             >
             <input
               type="email"
-              placeholder="hello@work.com"
+              placeholder="your@email.com"
               class="w-full px-5 py-4 rounded-xl bg-slate-50 border-2 border-transparent focus:border-blue-600 focus:bg-white transition-all outline-none font-medium"
             />
           </div>
@@ -146,10 +142,12 @@
             @click="goToDashboard"
             class="w-full bg-slate-900 text-white py-5 rounded-xl font-black text-lg hover:bg-blue-600 transition-all shadow-xl active:scale-95 flex items-center justify-center gap-3 mt-4"
           >
-            {{ isLogin ? 'Войти' : 'Зарегистрироваться' }}
+            {{ isLogin ? 'Войти в панель' : 'Создать аккаунт' }}
           </button>
+          <p class="text-xs text-slate-400 text-center mt-6">
+            Подключение бота занимает 3–5 минут.
+          </p>
         </form>
-
       </div>
     </div>
   </div>
@@ -162,14 +160,26 @@ import router from '@/router/index.ts'
 const isLogin = ref(true)
 
 const goToDashboard = () => {
-  router.push('/dashboard')
+  router.push('/dashboard/')
 }
 
 const promo = [
-  { icon: '📈', title: 'Рост конверсии', desc: 'Наши боты увеличивают продажи на 30%.' },
-  { icon: '⚡', title: 'Скорость работы', desc: 'Мгновенные ответы пользователям 24/7.' },
-  { icon: '🔒', title: 'Безопасность', desc: 'Ваши данные защищены шифрованием AES-256.' },
+  {
+    icon: '🤖',
+    title: 'Бот работает за вас',
+    desc: 'Принимает записи и отвечает клиентам 24/7.',
+  },
+  {
+    icon: '📅',
+    title: 'Всё в одном месте',
+    desc: 'Расписание, клиенты и доход — в одной панели.',
+  },
+  {
+    icon: '🔔',
+    title: 'Меньше неявок',
+    desc: 'Автоматические напоминания клиентам.',
+  },
 ]
 
-const handleSubmit = () => console.log('Auth logic here')
+const handleSubmit = () => router.push('/dashboard')
 </script>

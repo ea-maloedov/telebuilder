@@ -1,6 +1,4 @@
-<!-- src/App.vue -->
 <template>
-  <!-- Здесь будет либо Landing, либо Auth в зависимости от URL -->
   <router-view v-slot="{ Component }">
     <transition name="fade" mode="out-in">
       <component :is="Component" />

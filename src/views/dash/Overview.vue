@@ -1,113 +1,158 @@
-<script setup lang="ts">
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { ArrowUpRight, Users, MessageSquare, Zap, Plus } from 'lucide-vue-next'
-
-const stats = [
-  { label: 'Всего юзеров', value: '12,402', trend: '+12%', icon: Users, color: 'text-blue-600' },
-  {
-    label: 'Сообщений',
-    value: '45.2k',
-    trend: '+8%',
-    icon: MessageSquare,
-    color: 'text-purple-600',
-  },
-  { label: 'Активность', value: '98.2%', trend: '+2%', icon: Zap, color: 'text-orange-600' },
-]
-</script>
-
 <template>
-  <div class="space-y-8 p-1" data-aos="fade-up">
-    <!-- Приветственный блок -->
-    <div
-      class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-slate-900 p-10 rounded-[3rem] text-white overflow-hidden relative"
-    >
-      <div class="z-10">
-        <h2 class="text-4xl font-black tracking-tight mb-2 italic">Центр управления 🚀</h2>
-        <p class="text-slate-400 font-medium max-w-md">
-          Все ваши боты работают в штатном режиме. Сегодня привлечено 142 новых пользователя.
-        </p>
-      </div>
-      <Button
-        size="lg"
-        class="bg-blue-600 hover:bg-blue-500 rounded-2xl h-14 px-8 font-black shadow-xl shadow-blue-500/20 z-10 transition-all active:scale-95"
-      >
-        <Plus class="mr-2 h-5 w-5" /> Создать бота
-      </Button>
-      <div class="absolute -right-10 -top-10 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl"></div>
-    </div>
-
-    <!-- Метрики -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <div class="space-y-8">
+    <!-- ================= KPIs ================= -->
+    <div class="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
       <Card
-        v-for="stat in stats"
-        :key="stat.label"
-        class="border-none shadow-sm rounded-[2.5rem] bg-white group hover:shadow-xl hover:shadow-slate-200/50 transition-all"
+        class="border-none shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5"
       >
-        <CardContent class="p-8">
-          <div class="flex justify-between items-start mb-6">
-            <div
-              :class="stat.color"
-              class="p-3 bg-slate-50 rounded-2xl group-hover:scale-110 transition-transform"
-            >
-              <component :is="stat.icon" class="h-6 w-6" />
-            </div>
-            <Badge
-              variant="secondary"
-              class="bg-green-50 text-green-600 border-none font-black rounded-lg"
-            >
-              {{ stat.trend }}
-            </Badge>
+        <CardContent class="p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-sm text-slate-500 font-medium"> Записей сегодня </span>
+            <ChartBarIncreasingIcon class="w-5 h-5 text-slate-400" />
           </div>
-          <p class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">
-            {{ stat.label }}
-          </p>
-          <h3 class="text-3xl font-black text-slate-900">{{ stat.value }}</h3>
+
+          <div class="text-4xl font-semibold tracking-tight">10 000</div>
+        </CardContent>
+      </Card>
+
+      <Card
+        class="border-none shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5"
+      >
+        <CardContent class="p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-sm text-slate-500 font-medium"> Доход сегодня </span>
+            <TrendingUp class="w-5 h-5 text-slate-400" />
+          </div>
+
+          <div class="text-4xl font-semibold tracking-tight">18 400 ₽</div>
+
+          <div class="mt-2 text-xs text-emerald-600 font-medium">+15%</div>
+        </CardContent>
+      </Card>
+
+      <Card
+        class="border-none shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5"
+      >
+        <CardContent class="p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-sm text-slate-500 font-medium"> Новые клиенты </span>
+            <Users2 class="w-5 h-5 text-slate-400" />
+          </div>
+
+          <div class="text-4xl font-semibold tracking-tight">5</div>
+
+          <div class="mt-2 text-xs text-emerald-600 font-medium">За 24 ч.</div>
+        </CardContent>
+      </Card>
+
+      <Card
+        class="border-none shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5"
+      >
+        <CardContent class="p-6">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-sm text-slate-500 font-medium"> Отмены </span>
+            <Ban class="w-5 h-5 text-slate-400" />
+          </div>
+
+          <div class="text-4xl font-semibold tracking-tight">1</div>
         </CardContent>
       </Card>
     </div>
 
-    <!-- Список ботов -->
-    <div class="space-y-6">
-      <div class="flex justify-between items-center px-4">
-        <h3 class="text-xl font-black tracking-tight">Ваши проекты</h3>
-        <Button variant="ghost" class="font-bold text-blue-600">Все проекты</Button>
+    <!-- ================= MAIN GRID ================= -->
+    <div class="grid gap-8 xl:grid-cols-3">
+      <!-- ===== Left side ===== -->
+      <div class="xl:col-span-2 space-y-8">
+        <!-- Upcoming bookings -->
+        <Card class="border-none shadow-sm">
+          <CardHeader class="pb-4 flex flex-row items-center justify-between">
+            <CardTitle class="text-lg font-semibold"> Ближайшие записи </CardTitle>
+            <Button variant="ghost" size="sm"> Смотреть все </Button>
+          </CardHeader>
+
+          <CardContent class="space-y-3">
+            <div
+              v-for="booking in bookings"
+              :key="booking.id"
+              class="flex items-center justify-between p-4 rounded-xl hover:bg-slate-50 transition"
+            >
+              <div class="flex items-center gap-4">
+                <div
+                  class="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center font-semibold text-sm"
+                >
+                  {{ booking.time }}
+                </div>
+
+                <div>
+                  <div class="font-semibold">
+                    {{ booking.client }}
+                  </div>
+                  <div class="text-sm text-slate-500">
+                    {{ booking.service }}
+                  </div>
+                </div>
+              </div>
+
+              <Badge :variant="booking.statusVariant">
+                {{ booking.status }}
+              </Badge>
+            </div>
+          </CardContent>
+        </Card>
+
+        <!-- Income chart placeholder -->
+        <Card class="border-none shadow-sm">
+          <CardHeader>
+            <CardTitle class="text-lg font-semibold"> Доход за 7 дней </CardTitle>
+          </CardHeader>
+
+          <CardContent>
+            <div
+              class="h-64 rounded-2xl bg-gradient-to-br from-slate-50 to-white border border-slate-100 flex items-center justify-center text-slate-400 text-sm"
+            >
+              График будет здесь
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
-      <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
-        <Card
-          v-for="i in 2"
-          :key="i"
-          class="border-none shadow-sm rounded-[3rem] p-4 bg-white overflow-hidden group"
-        >
-          <CardContent class="p-6">
-            <div class="flex gap-6 items-start">
-              <div
-                class="w-20 h-20 bg-slate-50 rounded-[2rem] flex items-center justify-center text-3xl group-hover:rotate-6 transition-transform"
-              >
-                {{ i === 1 ? '☕' : '🤖' }}
-              </div>
-              <div class="flex-1">
-                <div class="flex justify-between items-center mb-2">
-                  <h4 class="text-xl font-black">
-                    Бот {{ i === 1 ? 'Coffee Shop' : 'AI Helper' }}
-                  </h4>
-                  <Badge
-                    class="bg-blue-50 text-blue-600 border-none rounded-md text-[10px] font-black uppercase"
-                    >LIVE</Badge
-                  >
-                </div>
-                <p class="text-slate-500 text-sm mb-6 leading-relaxed">
-                  Автоматизация заказов и интеграция с CRM системой магазина.
-                </p>
-                <div class="flex gap-4">
-                  <Button class="flex-1 rounded-xl font-black h-12">Конструктор</Button>
-                  <Button variant="secondary" class="rounded-xl h-12 w-12 p-0"
-                    ><ArrowUpRight class="h-5 w-5"
-                  /></Button>
-                </div>
-              </div>
+      <!-- ===== Right side ===== -->
+      <div class="space-y-8">
+        <!-- Quick actions -->
+        <Card class="border-none shadow-sm">
+          <CardHeader>
+            <CardTitle class="text-lg font-semibold"> Быстрые действия </CardTitle>
+          </CardHeader>
+
+          <CardContent class="space-y-3">
+            <Button class="w-full h-11 rounded-xl font-semibold"> + Новая запись </Button>
+
+            <Button variant="outline" class="w-full h-11 rounded-xl"> Открыть бота </Button>
+
+            <Button variant="outline" class="w-full h-11 rounded-xl"> Добавить услугу </Button>
+          </CardContent>
+        </Card>
+
+        <!-- Bot status -->
+        <Card>
+          <CardHeader>
+            <CardTitle class="text-base font-bold"> Статус бота </CardTitle>
+          </CardHeader>
+
+          <CardContent class="space-y-3">
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-slate-500">Состояние</span>
+              <Badge variant="default">Активен</Badge>
+            </div>
+
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-slate-500">Подключён</span>
+              <span class="text-sm font-medium"> @my_business_bot </span>
+            </div>
+
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-slate-500">Последняя активность</span>
+              <span class="text-sm"> 2 минуты назад </span>
             </div>
           </CardContent>
         </Card>
@@ -115,3 +160,38 @@ const stats = [
     </div>
   </div>
 </template>
+
+<script setup>
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { TrendingUp, Users2, Ban, ChartBarIncreasingIcon } from 'lucide-vue-next'
+
+const bookings = [
+  {
+    id: 1,
+    time: '10:00',
+    client: 'Анна Смирнова',
+    service: 'Маникюр',
+    status: 'Подтверждена',
+    statusVariant: 'default',
+  },
+  {
+    id: 2,
+    time: '12:30',
+    client: 'Ирина К.',
+    service: 'Окрашивание',
+    status: 'Ожидает',
+    statusVariant: 'secondary',
+  },
+  {
+    id: 3,
+    time: '15:00',
+    client: 'Мария П.',
+    service: 'Стрижка',
+    status: 'Отменена',
+    statusVariant: 'destructive',
+  },
+]
+</script>

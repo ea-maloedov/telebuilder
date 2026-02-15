@@ -32,6 +32,11 @@ const routes: Array<RouteRecordRaw> = [
       { path: 'analytics', name: 'Analytics', component: () => import('../views/dash/Analytics.vue') },
       { path: 'broadcast', name: 'Broadcast', component: () => import('../views/dash/Broadcast.vue') },
       { path: 'settings', name: 'Settings', component: () => import('../views/dash/Settings.vue') },
+      { path: 'bookings', name: 'Bookings', component: () => import('../views/dash/Bookings.vue') },
+      { path: 'clients', name: 'Clients', component: () => import('../views/dash/Clients.vue') },
+      { path: 'finance', name: 'Finances', component: () => import('../views/dash/Finance.vue') },
+      { path: 'bot', name: 'Bot', component: () => import('../views/dash/Bot.vue') },
+      { path: 'business', name: 'Business', component: () => import('../views/dash/business/Business.vue') }
     ]
   },
   // Редирект на главную для несуществующих страниц

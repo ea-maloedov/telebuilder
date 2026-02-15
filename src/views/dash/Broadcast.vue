@@ -1,129 +1,140 @@
-<script setup lang="ts">
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import { Textarea } from '@/components/ui/textarea'
-import { Label } from '@/components/ui/label'
-import { Send, Plus, History } from 'lucide-vue-next'
-</script>
-
 <template>
-  <div class="space-y-8 p-1" data-aos="fade-up">
-    <!-- Header -->
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-      <div>
-        <h2 class="text-3xl font-black tracking-tight">Рассылки</h2>
-        <p class="text-muted-foreground font-medium">
-          Создавайте мгновенные оповещения для всей базы
-        </p>
-      </div>
-      <Button size="lg" class="rounded-2xl h-14 px-8 shadow-xl shadow-primary/20 font-black">
-        <Plus class="mr-2 h-5 w-5" /> Новая кампания
-      </Button>
+  <div class="space-y-8">
+    <!-- HEADER -->
+    <div>
+      <h2 class="text-2xl font-bold tracking-tight">Рассылки</h2>
+      <p class="text-sm text-slate-500 mt-1">Массовая отправка сообщений клиентам</p>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <!-- Конструктор сообщения -->
-      <Card class="lg:col-span-2 border-none shadow-sm rounded-[2.5rem] bg-white">
-        <CardHeader class="p-8 pb-0">
-          <CardTitle class="text-xl">Контент рассылки</CardTitle>
-          <CardDescription>Настройте параметры отправки сообщения</CardDescription>
-        </CardHeader>
-        <CardContent class="p-8 space-y-6">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="space-y-3">
-              <Label class="text-xs font-black uppercase tracking-widest text-slate-400"
-                >Источник</Label
-              >
-              <Select default-value="coffee">
-                <SelectTrigger
-                  class="h-12 rounded-xl bg-slate-50 border-none ring-offset-transparent focus:ring-2 focus:ring-primary font-bold"
-                >
-                  <SelectValue placeholder="Выберите бота" />
-                </SelectTrigger>
-                <SelectContent class="rounded-xl border-none shadow-xl">
-                  <SelectItem value="coffee" class="font-bold">☕ Coffee Shop Bot</SelectItem>
-                  <SelectItem value="ai" class="font-bold">🤖 Support AI Helper</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div class="space-y-3">
-              <Label class="text-xs font-black uppercase tracking-widest text-slate-400"
-                >Аудитория</Label
-              >
-              <Select default-value="all">
-                <SelectTrigger
-                  class="h-12 rounded-xl bg-slate-50 border-none ring-offset-transparent focus:ring-2 focus:ring-primary font-bold"
-                >
-                  <SelectValue placeholder="Выберите сегмент" />
-                </SelectTrigger>
-                <SelectContent class="rounded-xl border-none shadow-xl">
-                  <SelectItem value="all" class="font-bold">Все (12.4k)</SelectItem>
-                  <SelectItem value="active" class="font-bold">Активные (3k)</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
+    <!-- CREATE BROADCAST -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-6">
+      <div class="flex items-center gap-2">
+        <Send class="w-4 h-4 text-slate-500" />
+        <h3 class="font-semibold">Новая рассылка</h3>
+      </div>
 
-          <div class="space-y-3">
-            <Label class="text-xs font-black uppercase tracking-widest text-slate-400"
-              >Сообщение</Label
-            >
-            <Textarea
-              placeholder="Что вы хотите сказать пользователям?"
-              class="min-h-[200px] rounded-[1.5rem] bg-slate-50 border-none focus-visible:ring-2 focus-visible:ring-primary p-6 text-base font-medium resize-none"
-            />
-          </div>
+      <!-- Title -->
+      <div class="space-y-2">
+        <label class="text-sm font-medium">Название кампании</label>
+        <input
+          v-model="title"
+          placeholder="Например: Скидка 20% на март"
+          class="w-full px-4 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl outline-none focus:bg-white focus:border-slate-400 transition"
+        />
+      </div>
 
-          <div class="flex items-center justify-between pt-4 border-t border-slate-50">
-            <div class="flex gap-2">
-              <Button variant="outline" size="icon" class="rounded-xl border-slate-100">📎</Button>
-              <Button variant="outline" size="icon" class="rounded-xl border-slate-100">😊</Button>
-            </div>
-            <Button class="rounded-xl px-8 font-black">
-              Отправить сейчас <Send class="ml-2 h-4 w-4" />
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+      <!-- Message -->
+      <div class="space-y-2">
+        <label class="text-sm font-medium">Текст сообщения</label>
+        <textarea
+          v-model="message"
+          rows="4"
+          placeholder="Введите текст рассылки..."
+          class="w-full px-4 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl outline-none focus:bg-white focus:border-slate-400 transition resize-none"
+        />
+      </div>
 
-      <!-- История -->
-      <div class="space-y-6">
-        <h3
-          class="flex items-center gap-2 text-sm font-black uppercase tracking-widest text-slate-400 px-4"
+      <!-- Audience -->
+      <div class="space-y-2">
+        <label class="text-sm font-medium">Аудитория</label>
+        <select
+          v-model="audience"
+          class="w-full px-4 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl outline-none focus:bg-white focus:border-slate-400 transition"
         >
-          <History class="h-4 w-4" /> Последние запуски
-        </h3>
-        <Card
-          v-for="i in 3"
-          :key="i"
-          class="border-none shadow-sm rounded-[2rem] hover:shadow-md transition-shadow"
+          <option value="all">Все клиенты</option>
+          <option value="active">Активные (30 дней)</option>
+          <option value="inactive">Неактивные</option>
+        </select>
+      </div>
+
+      <div class="flex items-center justify-between pt-2">
+        <div class="flex items-center gap-2 text-xs text-slate-500">
+          <Users class="w-4 h-4" />
+          Охват: {{ estimatedCount }} получателей
+        </div>
+
+        <Button class="rounded-xl gap-2">
+          <Send class="w-4 h-4" />
+          Отправить
+        </Button>
+      </div>
+    </div>
+
+    <!-- PREVIEW -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-4">
+      <div class="flex items-center gap-2">
+        <Eye class="w-4 h-4 text-slate-500" />
+        <h3 class="font-semibold">Предпросмотр</h3>
+      </div>
+
+      <div class="bg-slate-50 rounded-xl p-4 text-sm whitespace-pre-line">
+        {{ message || 'Здесь будет отображаться текст сообщения' }}
+      </div>
+    </div>
+
+    <!-- HISTORY -->
+    <div class="bg-white rounded-2xl border border-slate-200 p-6 space-y-6">
+      <div class="flex items-center gap-2">
+        <History class="w-4 h-4 text-slate-500" />
+        <h3 class="font-semibold">История рассылок</h3>
+      </div>
+
+      <div
+        v-for="item in history"
+        :key="item.id"
+        class="flex items-center justify-between p-4 rounded-xl border border-slate-100 hover:border-slate-200 hover:shadow-sm transition"
+      >
+        <div>
+          <p class="text-sm font-medium">{{ item.title }}</p>
+          <p class="text-xs text-slate-500">{{ item.date }} · {{ item.recipients }} получателей</p>
+        </div>
+
+        <span
+          :class="statusClass(item.status)"
+          class="px-3 py-1 rounded-full text-xs font-semibold"
         >
-          <CardContent class="p-6 space-y-4">
-<!--            <div class="flex justify-between items-center">-->
-<!--              <Badge-->
-<!--                variant="secondary"-->
-<!--                class="rounded-lg bg-green-50 text-green-600 font-black border-none"-->
-<!--                >DONE</Badge-->
-<!--              >-->
-<!--              <span class="text-[10px] font-bold text-slate-400">12 ФЕВ, 14:00</span>-->
-<!--            </div>-->
-            <p class="font-bold text-sm leading-tight">
-              Обновление весеннего меню и промокод на скидку 15%
-            </p>
-            <div class="flex gap-4 text-[10px] font-black text-slate-400 uppercase">
-              <span>👥 2,400</span>
-              <span>📈 42% Open Rate</span>
-            </div>
-          </CardContent>
-        </Card>
+          {{ item.status }}
+        </span>
       </div>
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref, computed } from 'vue'
+import { Send, Users, Eye, History } from 'lucide-vue-next'
+import { Button } from '@/components/ui/button'
+
+const title = ref('')
+const message = ref('')
+const audience = ref('all')
+
+const estimatedCount = computed(() => {
+  if (audience.value === 'all') return 1240
+  if (audience.value === 'active') return 640
+  if (audience.value === 'inactive') return 600
+})
+
+const history = ref([
+  {
+    id: 1,
+    title: 'Новогодняя акция',
+    date: '01.01.2026',
+    recipients: 1100,
+    status: 'Отправлено',
+  },
+  {
+    id: 2,
+    title: 'Скидка 15%',
+    date: '12.02.2026',
+    recipients: 850,
+    status: 'Запланировано',
+  },
+])
+
+const statusClass = (status) => {
+  if (status === 'Отправлено') return 'bg-green-100 text-green-700'
+  if (status === 'Запланировано') return 'bg-blue-100 text-blue-700'
+  return 'bg-slate-100 text-slate-600'
+}
+</script>
