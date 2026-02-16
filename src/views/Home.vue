@@ -75,20 +75,6 @@
               >
                 Создать бота бесплатно
               </button>
-              <!--              <div class="flex items-center gap-4">-->
-              <!--                <div class="flex -space-x-4">-->
-              <!--                  <img-->
-              <!--                    v-for="i in 3"-->
-              <!--                    :key="i"-->
-              <!--                    :src="`https://i.pravatar.cc/100?img=${i}`"-->
-              <!--                    class="w-12 h-12 rounded-2xl border-4 border-white shadow-sm"-->
-              <!--                  />-->
-              <!--                </div>-->
-              <!--                <div class="text-sm font-bold text-slate-400 leading-tight">-->
-              <!--                  <span class="text-slate-900">4,200+</span> <br />-->
-              <!--                  активных мастеров-->
-              <!--                </div>-->
-              <!--              </div>-->
             </div>
           </div>
 
